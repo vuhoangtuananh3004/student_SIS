@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.2" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="845.0" prefWidth="1070.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MenuController">
+   <items>
+      <VBox alignment="TOP_CENTER" prefHeight="681.0" prefWidth="188.0" style="-fx-background-color: white;">
+         <children>
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/download.png" />
+               </image>
+            </ImageView>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#switchToHomeStackPane" prefHeight="45.0" prefWidth="219.0" style="-fx-border-color: transparent  transparent  black; -fx-background-color: transparent; -fx-border-width: 2px;" text="Home" textFill="#0d0d0d">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="studentBtn" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#switchToStudentStackPane" prefHeight="45.0" prefWidth="223.0" style="-fx-border-color: transparent  transparent  black; -fx-background-color: transparent; -fx-border-width: 2px;" text="Students" textFill="#0d0d0d">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="attBtn" alignment="CENTER" contentDisplay="CENTER" disable="true" mnemonicParsing="false" onAction="#switchToAttRecord" prefHeight="45.0" prefWidth="234.0" style="-fx-border-color: transparent  transparent  black; -fx-background-color: transparent; -fx-border-width: 2px;" text="Attendance Records" textFill="#0d0d0d">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="quitBtn" mnemonicParsing="false" prefHeight="35.0" prefWidth="38.0" style="-fx-background-radius: 20px; -fx-background-color: FD8A8A;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.21316348016262054" blue="1.0" />
+                     </color>
+                  </DropShadow>
+               </effect>
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/icons8-logout-rounded-left-96.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <VBox.margin>
+                  <Insets top="520.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
+      </VBox>
+      <SplitPane dividerPositions="0.18795888399412627" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="635.0" style="-fx-background-color: b388eb;" SplitPane.resizableWithParent="false">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="150.0" layoutY="50.0" prefHeight="56.0" prefWidth="552.0" text="UMBC Student Information System (SIS)" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman Bold" size="30.0" />
+                     </font>
+                  </Label>
+               </children></AnchorPane>
+            <StackPane prefHeight="411.0" prefWidth="758.0">
+               <children>
+                <AnchorPane fx:id="homeStackPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" style="-fx-background-color: white;" visible="false">
+                     <children>
+                        <Label fx:id="swipeLabel" layoutX="205.0" layoutY="154.0">
+                           <font>
+                              <Font name="Times New Roman Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutX="114.0" layoutY="54.0" prefHeight="281.0" prefWidth="264.0" style="-fx-background-color: #263A29; -fx-background-radius: 20px;">
+                           <children>
+                              <ImageView fitHeight="168.0" fitWidth="155.0" layoutX="55.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/icons8-shortlist-96.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="rosterBtn" layoutX="60.0" layoutY="235.0" mnemonicParsing="false" onAction="#selectFileRoster" prefHeight="32.0" prefWidth="144.0" style="-fx-background-radius: 20px; -fx-background-color: B3C99C;" text="Roster File" textAlignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow>
+                                       <color>
+                                          <Color red="1.0" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Button>
+                              <Label fx:id="rosterLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="6.0" layoutY="16.0" prefHeight="32.0" prefWidth="258.0" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="499.0" layoutY="54.0" prefHeight="281.0" prefWidth="264.0" style="-fx-background-color: #7C96AB; -fx-background-radius: 20px;">
+                           <children>
+                              <ImageView fitHeight="155.0" fitWidth="170.0" layoutX="55.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/icons8-shortlist-96.png" />
+                                 </image>
+                              </ImageView>
+                              <Button fx:id="swipeBtn" layoutX="60.0" layoutY="235.0" mnemonicParsing="false" onAction="#selectFileSwipe" prefHeight="32.0" prefWidth="144.0" style="-fx-background-radius: 20px; -fx-background-color: B3C99C;" text="Swipe File" textAlignment="CENTER">
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                                 <effect>
+                                    <DropShadow>
+                                       <color>
+                                          <Color red="1.0" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="16.0" />
+                                 </font>
+                              </Button>
+                              <Label fx:id="swipeLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="14.0" prefHeight="19.0" prefWidth="264.0" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="499.0" layoutY="347.0" onMouseClicked="#switchToAttRecord" prefHeight="281.0" prefWidth="264.0" style="-fx-background-color: #0B2447; -fx-background-radius: 20px;">
+                           <children>
+                              <ImageView fitHeight="184.0" fitWidth="223.0" layoutX="44.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/attendance-svgrepo-com.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <Label layoutX="91.0" layoutY="229.0" text="Records:" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="homeSwipeRecords" layoutX="172.0" layoutY="229.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                        <Pane layoutX="120.0" layoutY="364.0" onMouseClicked="#switchToStudentStackPane" prefHeight="281.0" prefWidth="258.0" style="-fx-background-color: #594545; -fx-background-radius: 20px;">
+                           <children>
+                              <ImageView fitHeight="184.0" fitWidth="184.0" layoutX="37.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/student-thin-svgrepo-com.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="85.0" layoutY="215.0" text="Students:" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="homeStudents" layoutX="165.0" layoutY="215.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="attStackPane" onMouseClicked="#switchToAttRecord" prefHeight="698.0" prefWidth="851.0">
+                     <children>
+                        <Pane layoutX="54.0" layoutY="14.0" onMouseClicked="#switchToAttRecord" prefHeight="123.0" prefWidth="144.0" style="-fx-background-color: #0B2447; -fx-background-radius: 20px;">
+                           <children>
+                              <ImageView fitHeight="131.0" fitWidth="90.0" layoutX="27.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/attendance-svgrepo-com.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </ImageView>
+                              <Label layoutX="27.0" layoutY="99.0" text="Records:" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="homeSwipeRecords1" layoutX="108.0" layoutY="99.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                        <ListView fx:id="attendanceList" layoutX="54.0" layoutY="215.0" prefHeight="451.0" prefWidth="757.0" />
+                        <Label layoutX="307.0" layoutY="137.0" prefHeight="40.0" prefWidth="251.0" text="Attendance Records">
+                           <font>
+                              <Font name="Times New Roman Bold" size="28.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="222.0" layoutY="22.0" mnemonicParsing="false" onAction="#students_not_in_class" prefHeight="32.0" prefWidth="173.0" text="Students not in class">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="222.0" layoutY="58.0" mnemonicParsing="false" onAction="#student_check_in_and_out" prefHeight="32.0" prefWidth="173.0" text="All times check in and out">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Button>
+                        <Label fx:id="sectionName" alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="177.0" prefHeight="17.0" prefWidth="352.0" textAlignment="CENTER">
+                           <font>
+                              <Font name="Times New Roman Bold" size="18.0" />
+                           </font></Label>
+                        <TextField fx:id="searchBox" alignment="CENTER" layoutX="54.0" layoutY="185.0" prefHeight="25.0" prefWidth="184.0" promptText="Search for student name" visible="false" />
+                        <Button layoutX="405.0" layoutY="22.0" mnemonicParsing="false" onAction="#studentLateToClass" prefHeight="32.0" prefWidth="173.0" text="Students late to class">
+                           <font>
+                              <Font name="Times New Roman" size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="studentStackPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+                     <children>
+                        <Pane layoutX="47.0" layoutY="14.0" onMouseClicked="#switchToStudentStackPane" prefHeight="123.0" prefWidth="137.0" style="-fx-background-color: #594545; -fx-background-radius: 20px;">
+                           <children>
+                              <ImageView fitHeight="86.0" fitWidth="73.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../images/student-thin-svgrepo-com.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="20.0" layoutY="87.0" text="Students:" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="countStudents" layoutX="99.0" layoutY="88.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Pane>
+                        <ListView fx:id="listStudentsView" layoutX="47.0" layoutY="154.0" prefHeight="484.0" prefWidth="757.0" />
+                        <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="5.0" layoutX="193.0" layoutY="81.0" prefHeight="56.0" prefWidth="322.0" text="Students In Roster" textAlignment="CENTER" wrapText="true">
+                           <font>
+                              <Font name="Times New Roman Bold" size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </StackPane>
+        </items>
+      </SplitPane>
+   </items>
+</SplitPane>

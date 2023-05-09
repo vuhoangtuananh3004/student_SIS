@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="614.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+   <children>
+      <Label layoutX="172.0" layoutY="95.0" prefHeight="59.0" prefWidth="655.0" text="STUDENT MANAGEMENT" textAlignment="CENTER" textFill="#0a0a0a">
+         <font>
+            <Font name="Times New Roman Bold" size="52.0" />
+         </font>
+      </Label>
+      <Button fx:id="startBtn" layoutX="652.0" layoutY="459.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="41.0" prefWidth="145.0" style="-fx-background-radius: 200px;" text="START">
+         <font>
+            <Font size="21.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX">
+               <color>
+                  <Color red="0.009999999776482582" green="1.0" blue="0.25868043303489685" />
+               </color>
+            </DropShadow>
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="290.0" fitWidth="314.0" layoutX="172.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/graduation-speech-svgrepo-com.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="488.0" layoutY="258.0" prefHeight="27.0" prefWidth="276.0" text="NAME : ANH VU" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="490.0" layoutY="296.0" prefHeight="27.0" prefWidth="276.0" text="UIN       : SG75894" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="490.0" layoutY="335.0" prefHeight="27.0" prefWidth="321.0" text="EMAIL : SG75894@GMAIL.COM" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="quitBtn" layoutX="489.0" layoutY="459.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="145.0" style="-fx-background-radius: 200px;" text="QUIT">
+         <font>
+            <Font size="21.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX">
+               <color>
+                  <Color red="1.0" green="0.009999999776482582" blue="0.009999999776482582" />
+               </color>
+            </DropShadow>
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

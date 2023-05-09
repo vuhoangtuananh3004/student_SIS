@@ -1,0 +1,277 @@
+package application;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import attendance.AttendanceApp;
+import attendance.Log;
+import attendance.Student;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.layout.AnchorPane;
+
+public class MenuController {
+
+	@FXML
+	private Button attBtn;
+
+	@FXML
+	private Button studentBtn;
+
+	@FXML
+	private Button quitBtn;
+
+	@FXML
+	private Button rosterBtn;
+
+	@FXML
+	private Button swipeBtn;
+
+	@FXML
+	private Label rosterLabel;
+
+	@FXML
+	private Label swipeLabel;
+
+	@FXML
+	private AnchorPane homeStackPane;
+
+	@FXML
+	private AnchorPane studentStackPane;
+
+	@FXML
+	private AnchorPane attStackPane;
+
+	@FXML
+	private Label homeStudents;
+	@FXML
+	private Label homeSwipeRecords;
+	@FXML
+	private Label countStudents;
+	@FXML
+	private ListView<Student> listStudentsView;
+	@FXML
+	private ListView<Student> attendanceList;
+	@FXML
+	private Label sectionName;
+	@FXML
+	private TextField searchBox;
+
+	private ObservableList<Student> students = FXCollections.observableArrayList();
+	private ObservableList<Student> attendances = FXCollections.observableArrayList();
+
+	AttendanceApp app = new AttendanceApp();
+
+	Stage stage;
+	private List<AnchorPane> aP = new ArrayList<>();
+
+	public void initialize() {
+		listStudentsView.setItems(students);
+		attendanceList.setItems(attendances);
+
+		searchBox.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (searchBox.getPromptText().equals("Search for student name ")) {
+				show_student_check_in_and_out(newValue);
+			} else if (searchBox.getPromptText().equals("Timestamp format: hh:mm:ss")) {
+				if (!app.list_of_students_late_to_class(newValue).isEmpty()) {
+					sectionName.setText("****** Students that arrived late *****");
+				}else {
+					sectionName.setText("Input should be in format hh:mm:ss");
+				}
+				
+				displayCustomViewForAttendanceRecords(app.list_of_students_late_to_class(newValue));
+			}
+
+		});
+		quitBtn.setOnAction(Event -> {
+			Platform.exit();
+		});
+		aP.add(homeStackPane);
+		aP.add(studentStackPane);
+		aP.add(attStackPane);
+	}
+
+	@FXML
+	private void switchToStudentStackPane() {
+		if (!studentBtn.isDisable()) {
+			closeAllPane();
+			studentStackPane.setVisible(true);
+		}
+	}
+
+	@FXML
+	private void switchToHomeStackPane() {
+		closeAllPane();
+		homeStackPane.setVisible(true);
+	}
+
+	@FXML
+	private void switchToAttRecord() {
+		if (!attBtn.isDisable()) {
+			closeAllPane();
+			attStackPane.setVisible(true);
+			reset();
+		}
+
+	}
+
+	private void closeAllPane() {
+		for (AnchorPane ac : aP) {
+			if (ac.isVisible()) {
+				ac.setVisible(false);
+			}
+		}
+	}
+
+	@FXML
+	private void selectFileRoster() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File selectedFile = fileChooser.showOpenDialog(stage);
+
+		if (selectedFile != null) {
+			app.readRosterFile(selectedFile.toString());
+			homeStudents.setText(app.countStudents());
+			countStudents.setText(app.countStudents());
+			rosterBtn.setStyle(
+					"-fx-background-radius: 20px; -fx-background-color: B3C99C; -fx-effect: dropshadow(gaussian, green, 10, 0, 0, 0, false, 5);");
+			rosterLabel.setText(selectedFile.getName());
+			studentBtn.setDisable(false);
+			displayCustomViewForStudentsRoster(app.getStudent_in_roster());
+
+		}
+	}
+
+	private void displayCustomViewForStudentsRoster(List<Student> listStudent) {
+		students.addAll(listStudent);
+		listStudentsView.setCellFactory(param -> new ListCell<Student>() {
+			@Override
+			protected void updateItem(Student student, boolean empty) {
+				super.updateItem(student, empty);
+
+				if (empty || student == null) {
+					setText(null);
+				} else {
+					setText(student.getlName() + " " + student.getfName());
+				}
+			}
+		});
+	}
+
+	private void displayCustomViewForAttendanceRecords(List<Student> AttStudentsRecord) {
+		attendances.clear();
+		attendances.addAll(AttStudentsRecord);
+		attendanceList.setCellFactory(param -> new ListCell<Student>() {
+			@Override
+			protected void updateItem(Student student, boolean empty) {
+				super.updateItem(student, empty);
+
+				if (empty || student == null) {
+					setText(null);
+				} else {
+					String temp = student.getlName() + " " + student.getfName() + "[";
+					for (Log log : student.getLogs()) {
+						temp += "'";
+						if (log.getDate_check_in() != null) {
+							temp += (log.getTime_check_in() + ", " + log.getDate_check_in()) ;
+						}
+						if (log.getDate_check_out() != null) {
+							temp +=  ", "  + (log.getTime_check_out() + ", " + log.getDate_check_out()) + "',";
+						}else {
+							temp += "'";
+						}
+					
+					}
+					temp += "]\n";
+					setText(temp);
+				}
+			}
+		});
+	}
+
+	@FXML
+	private void selectFileSwipe() {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File selectedFile = fileChooser.showOpenDialog(stage);
+
+		if (selectedFile != null) {
+			app.readSwipeDataFile(selectedFile.toString());
+			homeSwipeRecords.setText(app.countRecords());
+			swipeBtn.setStyle(
+					"-fx-background-radius: 20px; -fx-background-color: B3C99C; -fx-effect: dropshadow(gaussian, green, 10, 0, 0, 0, false, 5);");
+			swipeLabel.setText(selectedFile.getName());
+			attBtn.setDisable(false);
+		}
+	}
+
+	@FXML
+	void students_not_in_class(ActionEvent event) {
+		reset();
+		searchBox.setVisible(false);
+		sectionName.setText("******* Students missing in class ******");
+		displayCustomViewForAttendanceRecords(app.list_students_not_in_class());
+	}
+
+	@FXML
+	void student_check_in_and_out(ActionEvent event) {
+		reset();
+		searchBox.setPromptText("Search for student name ");
+		searchBox.setVisible(true);
+	}
+
+	void show_student_check_in_and_out(String name) {
+		List<Student> show = new ArrayList<>();
+		show.addAll(app.getStudent_in_swipe_data());
+		name = name.toLowerCase();
+		String[] words = name.split("\\s+");
+		for (Student student : app.getStudent_in_swipe_data()) {
+			String fname = student.getfName().toLowerCase();
+			String lname = student.getlName().toLowerCase();
+			if (!fname.contains(words[0]) && !lname.contains(words[0])) {
+				int studentIndex = show.indexOf(student);
+				show.remove(studentIndex);
+			}
+			if (words.length > 1) {
+				System.out.println(words[1]);
+				if (!fname.contains(words[1]) && !lname.contains(words[1])) {
+					int studentIndex = show.indexOf(student);
+					if (studentIndex != -1)
+						show.remove(studentIndex);
+				}
+			}
+		}
+		displayCustomViewForAttendanceRecords(show);
+
+	}
+
+	@FXML
+	void studentLateToClass(ActionEvent event) {
+		reset();
+		searchBox.setPromptText("Timestamp format: hh:mm:ss");
+		searchBox.setVisible(true);
+
+	}
+
+	void reset() {
+		searchBox.clear();
+		searchBox.setVisible(false);
+		sectionName.setText("");
+		displayCustomViewForAttendanceRecords(app.getStudent_in_swipe_data());
+	}
+}

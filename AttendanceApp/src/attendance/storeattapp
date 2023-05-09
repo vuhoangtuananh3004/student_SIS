@@ -1,0 +1,114 @@
+package attendance;
+
+import java.util.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+
+public class AttendanceApp {
+	private StudentRoster studentRoster = new StudentRoster();
+	private AttendanceLog swipeData = new AttendanceLog();
+	private List<Student> student_in_swipe_data;
+	private List<Student> student_in_roster;
+	private List<Student> student_not_in_class;
+	private List<Student> students_late_in_class;
+
+	public AttendanceApp() {
+		
+		
+	}
+	public void readRosterFile(String fileNameForRoster) {
+		this.studentRoster = new StudentRoster();
+		studentRoster.load_log(fileNameForRoster);
+		student_in_roster = studentRoster.getStudents_roster();
+	}
+	public void readSwipeDataFile(String fileNameForSwipeData) {
+		this.swipeData = new AttendanceLog();
+		swipeData.load_log(fileNameForSwipeData);
+		student_in_swipe_data = swipeData.getStudents_attendance();
+	}
+	/**
+	 * List Student not in class
+	 * @return list of student is missing.
+	 */
+	public List<Student> list_students_not_in_class() {
+		student_not_in_class = student_in_roster;
+		student_not_in_class.removeAll(student_in_swipe_data);
+		return student_not_in_class;
+
+	}
+	public void list_all_times_checking_in_and_out(Student student) {
+		int index = student_in_swipe_data.indexOf(student);
+		print_list_all_times_checking_in_and_out(index);
+	}
+	public void list_all_times_checked_in() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("****** Check in times for all students who attended ******\n");
+		for (Student st: student_in_swipe_data) {
+			sb.append(st.getlName() + ", " + st.getfName()+ ", " + st.getLogs().get(0).getDate_check_in() +", " + st.getLogs().get(0).getTime_check_in() +"\n");
+		}
+		sb.append("--------------------------------\n");
+		String result = sb.toString();
+		System.out.println(result);
+	}
+	public List<Student> list_of_students_late_to_class(String time) {
+			students_late_in_class = new ArrayList<>();
+			try {
+			 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+			 	String timeStr = "09:00:00";
+		        String onTime = time;
+		        LocalTime timeSetUp = LocalTime.parse(onTime, formatter);
+			for (Student st: student_in_swipe_data) {
+					timeStr = st.getLogs().get(0).getTime_check_in().trim();
+					LocalTime timeSwipe = LocalTime.parse(timeStr, formatter);
+			        int getTimeSetUp = timeSetUp.toSecondOfDay();
+			        int getTimeSwipe = timeSwipe.toSecondOfDay();
+			        int timeLate = getTimeSetUp - getTimeSwipe;
+			        if (timeLate > 0) {
+			        	students_late_in_class.add(st);
+			        }
+				}
+			}catch (Exception e) {
+				System.out.println("TimeStamp should be in format hh:mm:ss");
+			}
+
+	        return students_late_in_class;
+		
+	}
+	private void print_list_all_times_checking_in_and_out(int studentIndex) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("****** List all swipe in and out for a student ******\n");
+		if (studentIndex == -1) sb.append("*************************************");
+		else {
+			Student student = student_in_swipe_data.get(studentIndex);
+			for (Log log: student.getLogs()) {
+				if (log.getDate_check_in() != null) {
+					sb.append(student.getlName() + ", " + student.getfName()+ ", " + log.getTime_check_in() +", " + log.getDate_check_in() + "\n");
+				}
+				if (log.getDate_check_out() != null) {
+					sb.append(student.getlName() + ", " + student.getfName()+ ", " + log.getTime_check_out() +", " + log.getDate_check_out() +"\n");
+				}
+				sb.append("--------------------------------\n");
+			}
+		}
+		String result = sb.toString();
+		System.out.println(result);
+	}
+	
+
+	public String countStudents() {
+		String temp = String.valueOf(student_in_roster.size());
+		return temp;
+	}
+	public String countRecords() {
+		String temp = String.valueOf(student_in_swipe_data.size());
+		return temp;
+	}
+	public List<Student> getStudent_in_roster() {
+		return student_in_roster;
+	}
+	public List<Student> getStudent_in_swipe_data() {
+		return student_in_swipe_data;
+	}
+	
+}
